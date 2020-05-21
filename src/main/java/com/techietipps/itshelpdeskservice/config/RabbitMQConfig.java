@@ -28,15 +28,17 @@ public class RabbitMQConfig {
     }
 
     // create MessageListenerContainer using default connection factory
-    @Bean
-    MessageListenerContainer messageListenerContainer(ConnectionFactory connectionFactory) {
-        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
-        simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
-        simpleMessageListenerContainer.setQueues(queue());
-        simpleMessageListenerContainer.setMessageListener(new TicketServiceImpl());
-        return simpleMessageListenerContainer;
-
-    }
+    /*
+     * @Bean MessageListenerContainer messageListenerContainer(ConnectionFactory
+     * connectionFactory) { SimpleMessageListenerContainer
+     * simpleMessageListenerContainer = new SimpleMessageListenerContainer();
+     * simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
+     * simpleMessageListenerContainer.setQueues(queue());
+     * simpleMessageListenerContainer.setMessageListener(new TicketServiceImpl());
+     * return simpleMessageListenerContainer;
+     * 
+     * }
+     */
 
     // create custom connection factory
     /*

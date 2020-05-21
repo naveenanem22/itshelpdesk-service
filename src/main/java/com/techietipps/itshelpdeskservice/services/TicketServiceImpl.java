@@ -9,17 +9,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 @Service("ticketServiceImpl")
-public class TicketServiceImpl implements TicketService, MessageListener {
+public class TicketServiceImpl implements TicketService/* , MessageListener */ {
 
     @Autowired
     @Qualifier("ticketDaoImpl")
     private TicketDao ticketDao;
+
+    @Autowired
+    private Environment env;
 
     private final Logger logger = LoggerFactory.getLogger(TicketServiceImpl.class);
 
@@ -40,16 +45,15 @@ public class TicketServiceImpl implements TicketService, MessageListener {
 
     }
 
-    /*
-     * @RabbitHandler public void handleJobCreatedEvent(Message message) {
-     * logger.info("Received message under handleJobCreatedEvent: " +
-     * message.toString()); }
-     */
+    @RabbitListener(queues = "recruitmentQueue")
+    public void handleJobCreatedEvent(Message message) {
+        logger.info("Received message under handleJobCreatedEvent: " + message.toString());
+    }
 
-    @Override
+    /* @Override
     public void onMessage(Message message) {
         logger.info("Received message: " + message.toString());
 
-    }
+    } */
 
 }
