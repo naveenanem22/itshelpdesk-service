@@ -9,15 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.springframework.stereotype.Service;
 
 @Service("ticketServiceImpl")
-@RabbitListener(queues = "${itshelpdesk.recruitment.queue}")
 public class TicketServiceImpl implements TicketService, MessageListener {
 
     @Autowired
@@ -43,10 +40,11 @@ public class TicketServiceImpl implements TicketService, MessageListener {
 
     }
 
-    @RabbitHandler
-    public void handleJobCreatedEvent(Message message) {
-        logger.info("Received message under handleJobCreatedEvent: " + message.toString());
-    }
+    /*
+     * @RabbitHandler public void handleJobCreatedEvent(Message message) {
+     * logger.info("Received message under handleJobCreatedEvent: " +
+     * message.toString()); }
+     */
 
     @Override
     public void onMessage(Message message) {
